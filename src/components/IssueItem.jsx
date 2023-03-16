@@ -14,11 +14,9 @@ export function IssueItem({
   labels,
   status,
 }) {
-  console.log({ assignee });
   const assigneeUser = useUserData(assignee);
   const createdByUser = useUserData(createdBy);
 
-  console.log({ assigneeUser, createdByUser });
   return (
     <li>
       <div>

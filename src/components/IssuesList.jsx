@@ -1,12 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { IssueItem } from "./IssueItem";
 
-export default function IssuesList({ labels }) {
-  const issuesQuery = useQuery(["issues", { labels }], () => {
+export default function IssuesList({ labels, status }) {
+  const issuesQuery = useQuery(["issues", { labels, status }], () => {
+    const statusString = status ? `&status=${status}` : "";
     const labelString = labels.map((label) => `labels[]=${label}`).join("&");
-    return fetch(`/api/issues?${labelString}`).then((res) => res.json());
+    return fetch(`/api/issues?${labelString}${statusString}`).then((res) =>
+      res.json()
+    );
   });
-
+  console.log({ status });
   return (
     <div>
       <h2>Issues List</h2>
@@ -25,7 +28,7 @@ export default function IssuesList({ labels }) {
               createdBy={issue.createdBy}
               createdDate={issue.createdDate}
               labels={issue.labels}
-              status={issuesQuery.status}
+              status={issue.status}
             />
           ))}
         </ul>
