@@ -9,7 +9,7 @@ export default function IssuesList({ labels, status }) {
       res.json()
     );
   });
-  console.log({ status });
+
   return (
     <div>
       <h2>Issues List</h2>
