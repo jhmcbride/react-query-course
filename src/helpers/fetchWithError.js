@@ -10,6 +10,6 @@ export async function fetchWithError(url, options) {
   if (result.error) {
     throw new Error(result.error);
   }
-
+  console.log({ result });
   return result;
 }

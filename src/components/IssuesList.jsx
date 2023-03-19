@@ -9,11 +9,10 @@ export default function IssuesList({ labels, status }) {
     async () => {
       const statusString = status ? `&status=${status}` : "";
       const labelString = labels.map((label) => `labels[]=${label}`).join("&");
-      return fetchWithError(`/api/issues?${labelString}${statusString}`).then(
-        (res) => res.json()
-      );
+      return fetchWithError(`/api/issues?${labelString}${statusString}`);
     },
     {
+      useErrorBoundary: true,
       staleTime: 1000 * 60,
     }
   );
@@ -22,15 +21,12 @@ export default function IssuesList({ labels, status }) {
 
   const searchQuery = useQuery(
     ["issues", "search", searchValue],
-    () =>
-      fetchWithError(`/api/search/issues?q=${searchValue}`).then((res) =>
-        res.json()
-      ),
+    () => fetchWithError(`/api/search/issues?q=${searchValue}`),
     {
       enabled: searchValue.length > 0,
     }
   );
-  console.log({ searchQuery });
+  console.log({ issuesQuery });
 
   const isSearch = !(
     searchQuery.fetchStatus === "idle" && searchQuery.isLoading === true

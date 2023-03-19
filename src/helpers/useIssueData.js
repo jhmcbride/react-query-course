@@ -4,8 +4,7 @@ import { fetchWithError } from "./fetchWithError";
 export function useIssueData(issueNumber) {
   return useQuery(
     ["issue", issueNumber],
-    () =>
-      fetchWithError(`/api/issues/${issueNumber}`).then((res) => res.json()),
+    () => fetchWithError(`/api/issues/${issueNumber}`),
     {
       staleTime: 1000 * 60,
     }

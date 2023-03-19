@@ -3,8 +3,6 @@ import { fetchWithError } from "./fetchWithError";
 
 export function useIssueComments(issueNumber) {
   return useQuery(["issue", issueNumber, "comments"], () =>
-    fetchWithError(`/api/issues/${issueNumber}/comments`).then((res) =>
-      res.json()
-    )
+    fetchWithError(`/api/issues/${issueNumber}/comments`)
   );
 }

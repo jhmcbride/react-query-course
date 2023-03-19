@@ -4,7 +4,7 @@ import { fetchWithError } from "./fetchWithError";
 export function useUserData(userId) {
   const usersData = useQuery(
     ["users", userId],
-    () => fetchWithError(`/api/users/${userId}`).then((res) => res.json()),
+    () => fetchWithError(`/api/users/${userId}`),
     {
       staleTime: 1000 * 60,
     }

@@ -4,10 +4,11 @@ import { fetchWithError } from "./fetchWithError";
 export function useLabelsData() {
   const labelsQuery = useQuery(
     ["labels"],
-    () => fetchWithError("/api/labels").then((res) => res.json()),
+    () => fetchWithError("/api/labels"),
     {
       staleTime: 1000 * 60 * 60,
     }
   );
+  console.log({ labelsQuery });
   return labelsQuery;
 }
