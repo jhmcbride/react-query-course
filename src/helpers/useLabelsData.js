@@ -1,8 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 
 export function useLabelsData() {
-  const labelsQuery = useQuery(["labels"], () => {
-    return fetch("/api/labels").then((res) => res.json());
-  });
+  const labelsQuery = useQuery(
+    ["labels"],
+    () => {
+      return fetch("/api/labels").then((res) => res.json());
+    },
+    {
+      staleTime: 1000 * 60 * 60,
+    }
+  );
   return labelsQuery;
 }
