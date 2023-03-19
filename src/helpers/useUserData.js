@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
+import { fetchWithError } from "./fetchWithError";
 
 export function useUserData(userId) {
   const usersData = useQuery(
     ["users", userId],
-    () => fetch(`/api/users/${userId}`).then((res) => res.json()),
+    () => fetchWithError(`/api/users/${userId}`).then((res) => res.json()),
     {
       staleTime: 1000 * 60,
     }

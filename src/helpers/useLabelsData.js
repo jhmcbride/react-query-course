@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
+import { fetchWithError } from "./fetchWithError";
 
 export function useLabelsData() {
   const labelsQuery = useQuery(
     ["labels"],
-    () => {
-      return fetch("/api/labels").then((res) => res.json());
-    },
+    () => fetchWithError("/api/labels").then((res) => res.json()),
     {
       staleTime: 1000 * 60 * 60,
     }

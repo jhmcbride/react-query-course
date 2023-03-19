@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
+import { fetchWithError } from "../helpers/fetchWithError";
 import { useState } from "react";
 import { IssueItem } from "./IssueItem";
 
 export default function IssuesList({ labels, status }) {
   const issuesQuery = useQuery(
     ["issues", { labels, status }],
-    () => {
+    async () => {
       const statusString = status ? `&status=${status}` : "";
       const labelString = labels.map((label) => `labels[]=${label}`).join("&");
-      return fetch(`/api/issues?${labelString}${statusString}`).then((res) =>
-        res.json()
+      return fetchWithError(`/api/issues?${labelString}${statusString}`).then(
+        (res) => res.json()
       );
     },
     {
@@ -22,7 +23,9 @@ export default function IssuesList({ labels, status }) {
   const searchQuery = useQuery(
     ["issues", "search", searchValue],
     () =>
-      fetch(`/api/search/issues?q=${searchValue}`).then((res) => res.json()),
+      fetchWithError(`/api/search/issues?q=${searchValue}`).then((res) =>
+        res.json()
+      ),
     {
       enabled: searchValue.length > 0,
     }
