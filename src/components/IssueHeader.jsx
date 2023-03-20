@@ -11,7 +11,6 @@ export function IssueHeader({
   createdDate,
   comments,
 }) {
-  console.log({ createdBy: createdBy });
   const statusObj = possibleStatus.find(
     (possibleStatus) => possibleStatus.id === status
   );

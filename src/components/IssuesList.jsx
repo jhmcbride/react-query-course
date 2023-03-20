@@ -12,7 +12,6 @@ export default function IssuesList({ labels, status }) {
       return fetchWithError(`/api/issues?${labelString}${statusString}`);
     },
     {
-      useErrorBoundary: true,
       staleTime: 1000 * 60,
     }
   );
@@ -26,7 +25,6 @@ export default function IssuesList({ labels, status }) {
       enabled: searchValue.length > 0,
     }
   );
-  console.log({ issuesQuery });
 
   const isSearch = !(
     searchQuery.fetchStatus === "idle" && searchQuery.isLoading === true
@@ -36,7 +34,6 @@ export default function IssuesList({ labels, status }) {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          // @ts-ignore
           setSearchValue(event.target.elements.search.value);
         }}
       >
@@ -57,6 +54,8 @@ export default function IssuesList({ labels, status }) {
       <h2>{isSearch ? "Search Results" : "Issues List"}</h2>
       {issuesQuery.isLoading ? (
         <p>Loading...</p>
+      ) : issuesQuery.isError ? (
+        <p>{issuesQuery.error.message}</p>
       ) : searchQuery.fetchStatus === "idle" &&
         searchQuery.isLoading === true ? (
         <ul className="issues-list">

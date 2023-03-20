@@ -1,15 +1,15 @@
 export async function fetchWithError(url, options) {
   const response = await fetch(url, options);
 
-  if (response.status !== 200) {
-    throw new Error("Error in request.");
+  if (response.status === 200) {
+    const result = await response.json();
+
+    if (result.error) {
+      throw new Error(result.error);
+    }
+
+    return result;
   }
 
-  const result = await response.json();
-
-  if (result.error) {
-    throw new Error(result.error);
-  }
-  console.log({ result });
-  return result;
+  throw new Error("Error in request.");
 }

@@ -9,6 +9,6 @@ export function useLabelsData() {
       staleTime: 1000 * 60 * 60,
     }
   );
-  console.log({ labelsQuery });
+
   return labelsQuery;
 }
