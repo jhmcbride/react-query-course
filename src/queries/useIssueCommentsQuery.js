@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchWithError } from "./fetchWithError";
+import { fetchWithError } from "../helpers/fetchWithError";
 
-export function useIssueComments(issueNumber) {
+export function useIssueCommentsQuery(issueNumber) {
   return useQuery(["issue", issueNumber, "comments"], () =>
     fetchWithError(`/api/issues/${issueNumber}/comments`)
   );

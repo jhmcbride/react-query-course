@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
 import { IssueHeader } from "./IssueHeader";
 import { Comment } from "./Comment";
-import { useIssueComments } from "../helpers/useIssueComments";
-import { useIssueData } from "../helpers/useIssueData";
+import { useIssueCommentsQuery } from "../queries/useIssueCommentsQuery";
+import { useIssueQuery } from "../queries/useIssueQuery";
 
 export default function IssueDetails() {
   const { number } = useParams();
 
-  const issueQuery = useIssueData(number);
-  const commentsQuery = useIssueComments(number);
+  const issueQuery = useIssueQuery(number);
+  const commentsQuery = useIssueCommentsQuery(number);
 
   return (
     <div className="issue-details">

@@ -1,7 +1,7 @@
-import { useLabelsData } from "../helpers/useLabelsData";
+import { useLabelsQuery } from "../queries/useLabelsQuery";
 
 export default function LabelList({ selected, toggle }) {
-  const labelsQuery = useLabelsData();
+  const labelsQuery = useLabelsQuery();
   return (
     <div className="labels">
       <h3>Labels</h3>

@@ -1,26 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchWithError } from "../helpers/fetchWithError";
 import { useState } from "react";
 import { IssueItem } from "./IssueItem";
+import { useSearchQuery } from "../queries/useSearchQuery";
+import { useIssuesQuery } from "../queries/useIssuesQuery";
 
 export default function IssuesList({ labels, status }) {
-  const issuesQuery = useQuery(
-    ["issues", { labels, status }],
-    async () => {
-      const statusString = status ? `&status=${status}` : "";
-      const labelString = labels.map((label) => `labels[]=${label}`).join("&");
-      return fetchWithError(`/api/issues?${labelString}${statusString}`);
-    });
-
   const [searchValue, setSearchValue] = useState("");
 
-  const searchQuery = useQuery(
-    ["issues", "search", searchValue],
-    () => fetchWithError(`/api/search/issues?q=${searchValue}`),
-    {
-      enabled: searchValue.length > 0,
-    }
-  );
+  const issuesQuery = useIssuesQuery(labels, status);
+  const searchQuery = useSearchQuery(searchValue);
 
   const isSearch = !(
     searchQuery.fetchStatus === "idle" && searchQuery.isLoading === true

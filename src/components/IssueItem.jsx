@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { GoIssueOpened, GoIssueClosed, GoComment } from "react-icons/go";
 import { relativeDate } from "../helpers/relativeDate";
-import { useUserData } from "../helpers/useUserData";
+// import { useUserQuery } from "../queries/useUserQuery";
 import { Label } from "./Label";
+import { useUserQuery } from "../queries/useUserQuery";
 
 export function IssueItem({
   title,
@@ -14,8 +15,8 @@ export function IssueItem({
   labels,
   status,
 }) {
-  const assigneeUser = useUserData(assignee);
-  const createdByUser = useUserData(createdBy);
+  const assigneeUser = useUserQuery(assignee);
+  const createdByUser = useUserQuery(createdBy);
 
   return (
     <li>

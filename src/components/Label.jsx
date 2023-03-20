@@ -1,7 +1,7 @@
-import { useLabelsData } from "../helpers/useLabelsData";
+import { useLabelsQuery } from "../queries/useLabelsQuery";
 
 export function Label({ label }) {
-  const labelsQuery = useLabelsData();
+  const labelsQuery = useLabelsQuery();
 
   if (labelsQuery.isLoading) return null;
 

@@ -1,7 +1,7 @@
 import { possibleStatus } from "../helpers/defaultData";
 import { GoIssueClosed, GoIssueOpened } from "react-icons/go";
 import { relativeDate } from "../helpers/relativeDate";
-import { useUserData } from "../helpers/useUserData";
+import { useUserQuery } from "../queries/useUserQuery";
 
 export function IssueHeader({
   title,
@@ -14,7 +14,8 @@ export function IssueHeader({
   const statusObj = possibleStatus.find(
     (possibleStatus) => possibleStatus.id === status
   );
-  const createUser = useUserData(createdBy);
+  const createUser = useUserQuery(createdBy);
+
   return (
     <header>
       <h2>

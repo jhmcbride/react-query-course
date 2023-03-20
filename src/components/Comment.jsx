@@ -1,8 +1,8 @@
 import { relativeDate } from "../helpers/relativeDate";
-import { useUserData } from "../helpers/useUserData";
+import { useUserQuery } from "../queries/useUserQuery";
 
 export function Comment({ comment, createdBy, createdDate }) {
-  const userQuery = useUserData(createdBy);
+  const userQuery = useUserQuery(createdBy);
 
   if (userQuery.isLoading) {
     return (
