@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom";
 import { GoIssueOpened, GoIssueClosed, GoComment } from "react-icons/go";
 import { relativeDate } from "../helpers/relativeDate";
-// import { useUserQuery } from "../queries/useUserQuery";
 import { Label } from "./Label";
 import { useUserQuery } from "../queries/useUserQuery";
+import { useQueryClient } from "@tanstack/react-query";
+import { fetchIssue, issueQueryKeyPrefix } from "../queries/useIssueQuery";
+import {
+  fetchIssueComments,
+  issueCommentsQueryKey,
+} from "../queries/useIssueCommentsQuery";
 
 export function IssueItem({
   title,
@@ -18,8 +23,19 @@ export function IssueItem({
   const assigneeUser = useUserQuery(assignee);
   const createdByUser = useUserQuery(createdBy);
 
+  const queryClient = useQueryClient();
+
+  console.log({ issueQueryKeyPrefix, number });
   return (
-    <li>
+    <li
+      onMouseEnter={() => {
+        queryClient.prefetchQuery([issueQueryKeyPrefix, number], fetchIssue);
+        queryClient.prefetchQuery(
+          [issueQueryKeyPrefix, number, issueCommentsQueryKey],
+          fetchIssueComments
+        );
+      }}
+    >
       <div>
         {["done", "cancelled"].includes(status) ? (
           <GoIssueClosed style={{ color: "red" }} />

@@ -2,6 +2,7 @@ import { Route, Routes, Link, useMatch } from "react-router-dom";
 import Issues from "./pages/Issues";
 import Issue from "./pages/Issue";
 import AddIssue from "./pages/AddIssue";
+import FetchingIndicator from "./components/FetchingIndicator";
 
 function QueryError({ error }) {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/add" element={<AddIssue />} />
           <Route path="/issue/:number" element={<Issue />} />
         </Routes>
+        <FetchingIndicator />
       </div>
   );
 }

@@ -5,10 +5,12 @@ import { useIssueCommentsQuery } from "../queries/useIssueCommentsQuery";
 import { useIssueQuery } from "../queries/useIssueQuery";
 
 export default function IssueDetails() {
-  const { number } = useParams();
+  const { number: issueNumberFromParams } = useParams();
 
-  const issueQuery = useIssueQuery(number);
-  const commentsQuery = useIssueCommentsQuery(number);
+  const issueNumber =  +issueNumberFromParams
+
+  const issueQuery = useIssueQuery(issueNumber);
+  const commentsQuery = useIssueCommentsQuery(issueNumber);
 
   return (
     <div className="issue-details">
